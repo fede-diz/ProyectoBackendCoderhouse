@@ -1,0 +1,38 @@
+<div>
+    <h1>Detalle de {{title}}</h1>
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th><strong>Id Mongo</strong></th>
+                <th><strong>Producto</strong></th>
+                <th><strong>Descripción</strong></th>
+                <th><strong>Código</strong></th>
+                <th><strong>Precio</strong></th>
+                <th><strong>Stock</strong></th>
+                <th><strong>Categoría</strong></th>
+                <th><strong>Miniatura</strong></th>
+                <th><strong>Agregar al Carrito</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{_id}}</td>
+                <td>{{title}}</td>
+                <td>{{description}}</td>
+                <td>{{code}}</td>
+                <td>{{price}}</td>
+                <td>{{stock}}</td>
+                <td>{{category}}</td>
+                <td>{{thumbnail}}</td>
+                <td><a href="">Agregar</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>El carrito al cuál se tiene que agregar no está definido.</p>
+    <p>Se incluye el botón "Agregar" sin fucionalidad</p>
+
+    <div>
+        <a href="/products?page=1">Inicio</a>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div>
+    <h1>Listado de Productos</h1>
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th><strong>Id Mongo</strong></th>
+                <th><strong>Producto</strong></th>
+                <th><strong>Descripción</strong></th>
+                <th><strong>Código</strong></th>
+                <th><strong>Precio</strong></th>
+                <th><strong>Stock</strong></th>
+                <th><strong>Categoría</strong></th>
+                <th><strong>Miniatura</strong></th>
+                <th><strong>Detalles</strong></th>
+                <th><strong>Agregar al Carrito</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products.docs}}
+            <tr>
+                <td>{{this._id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.stock}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.thumbnail}}</td>
+                <td><a href="/products/detail/{{this._id}}">Detalle</a></td>
+                <td><a href="">Agregar</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <p>El carrito al cuál se tiene que agregar no esta definido.</p>
+    <p>Se incluye el botón "Agregar" sin fucionalidad</p>
+
+    <div>
+        {{#if products.hasPrevPage}}
+            <a href="{{products.prevLink}}">Anterior</a>
+        {{/if}}
+        {{#if products.hasNextPage}}
+            <a href="{{products.nextLink}}">Siguiente</a>
+        {{/if}}
+    </div>
+</div>
