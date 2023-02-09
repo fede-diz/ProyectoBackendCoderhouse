@@ -16,21 +16,22 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{_id}}</td>
-                <td>{{title}}</td>
-                <td>{{description}}</td>
-                <td>{{code}}</td>
-                <td>{{price}}</td>
-                <td>{{stock}}</td>
-                <td>{{category}}</td>
-                <td>{{thumbnail}}</td>
-                <td><a href="">Agregar</a></td>
+                <form action="/api/carts/63d6fd0378064b2778f5223a/products/{{_id}}" method="post">
+                    <td>{{_id}}</td>
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{code}}</td>
+                    <td>{{price}}</td>
+                    <td>{{stock}}</td>
+                    <td>{{category}}</td>
+                    <td>{{thumbnail}}</td>
+                    <td><input type="submit" value="Agregar al Carrito"></td>
+                </form>
             </tr>
         </tbody>
     </table>
 
-    <p>El carrito al cuál se tiene que agregar no está definido.</p>
-    <p>Se incluye el botón "Agregar" sin fucionalidad</p>
+    <p>El carrito está harcodeado al _id: 63d6fd0378064b2778f5223a</p>
 
     <div>
         <a href="/products?page=1">Inicio</a>

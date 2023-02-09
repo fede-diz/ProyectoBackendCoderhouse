@@ -18,23 +18,24 @@
         <tbody>
             {{#each products.docs}}
             <tr>
-                <td>{{this._id}}</td>
-                <td>{{this.title}}</td>
-                <td>{{this.description}}</td>
-                <td>{{this.code}}</td>
-                <td>{{this.price}}</td>
-                <td>{{this.stock}}</td>
-                <td>{{this.category}}</td>
-                <td>{{this.thumbnail}}</td>
-                <td><a href="/products/detail/{{this._id}}">Detalle</a></td>
-                <td><a href="">Agregar</a></td>
+                <form action="/api/carts/63d6fd0378064b2778f5223a/products/{{this._id}}" method="post">
+                    <td>{{this._id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.thumbnail}}</td>
+                    <td><a href="/products/detail/{{this._id}}">Detalle</a></td>
+                    <td><input type="submit" value="Agregar al Carrito"></td>
+                </form>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
-    <p>El carrito al cuál se tiene que agregar no esta definido.</p>
-    <p>Se incluye el botón "Agregar" sin fucionalidad</p>
+    <p>El carrito está harcodeado al _id: 63d6fd0378064b2778f5223a</p>
 
     <div>
         {{#if products.hasPrevPage}}

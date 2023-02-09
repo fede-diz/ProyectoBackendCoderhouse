@@ -6,12 +6,12 @@ const cartSchema = new mongoose.Schema({
     products: {
         type: [{
             id: {
-                type: mongoose.Schema.Types.ObjectId,       // Esto sólo se usa dentro de mongoose y hace referencia a un id
-                ref: "products"                             // con esta referencia, que es el nombre de la colección a la que refiero
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "products"
             },
             quantity: Number
         }],
-        default: []         // Cuando creás un carrito nuevo, te crea un array vacío
+        default: []
     }
 })
 
