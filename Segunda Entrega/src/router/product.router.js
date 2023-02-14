@@ -4,15 +4,28 @@ import productModel from '../dao/models/product.model.js'
 const productRouter = Router()
 
 productRouter.get('/', async (req, res) => {
-    const products = await productModel.find().lean().exec()
-    const limit = req.query.limit
+    const limit = parseInt(req.query?.limit) || 10
+    const page = parseInt(req.query?.page) || 1
+    const filter = req.query?.filter  || ''
+    const sort = req.query?.sort || ''
 
-    if (limit) {
-        const limitedArray = products.slice(0, limit)
-        res.render('home', { data: limitedArray })
-    } else {
-        res.render('home', {data: products })
+    const search = {}
+    if(filter) {
+        search.title = filter
     }
+
+    const products = await productModel.paginate(search, {
+        limit, 
+        page, 
+        sort: sort=='' ? '' : { price: sort},
+        lean: true
+    })
+    
+    products.prevLink = products.hasPrevPage ? `/products?page=${products.prevPage}` : null
+    products.nextLink = products.hasNextPage ? `/products?page=${products.nextPage}` : null
+
+    console.log(JSON.stringify(products, null, 2, '\t'));
+    res.render('views', { products })
 })
 
 productRouter.get('/:pid', async (req, res) => {
@@ -22,6 +35,13 @@ productRouter.get('/:pid', async (req, res) => {
     if (!prodById) return res.status(400).json({status: "error", error: "Product not found"})
 
     res.json({ prodById })
+})
+
+productRouter.get('/detail/:pid', async (req, res) => {
+    const idProd = req.params.pid
+    const product = await productModel.findById(idProd)
+
+    res.render('detail', product)
 })
 
 productRouter.post('/', async (req, res) => {

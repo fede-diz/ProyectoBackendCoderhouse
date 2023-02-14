@@ -2,7 +2,6 @@ import productRouter from "./router/product.router.js"
 import cartRouter from "./router/cart.router.js"
 import chatRouter from "./router/chat.router.js"
 import messageModel from "./dao/models/message.model.js";
-import viewsRouter from "./router/views.router.js";
 
 const run = (socketServer, app) => {
     app.use((req, res, next) => {
@@ -14,7 +13,6 @@ const run = (socketServer, app) => {
     app.use('/api/products', productRouter)
     app.use('/api/carts', cartRouter)
     app.use('/api/chat', chatRouter)
-    app.use('/products', viewsRouter)
 
     app.use('/', (req, res) => res.send('Funcionando'))
 
