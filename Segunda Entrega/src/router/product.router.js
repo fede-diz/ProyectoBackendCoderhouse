@@ -21,11 +21,11 @@ productRouter.get('/', async (req, res) => {
         lean: true
     })
     
-    products.prevLink = products.hasPrevPage ? `/products?page=${products.prevPage}` : null
-    products.nextLink = products.hasNextPage ? `/products?page=${products.nextPage}` : null
+    products.prevLink = products.hasPrevPage ? `/api/products?page=${products.prevPage}` : null
+    products.nextLink = products.hasNextPage ? `/api/products?page=${products.nextPage}` : null
 
     console.log(JSON.stringify(products, null, 2, '\t'));
-    res.render('views', { products })
+    res.render('products', { products })
 })
 
 productRouter.get('/:pid', async (req, res) => {
@@ -37,13 +37,6 @@ productRouter.get('/:pid', async (req, res) => {
     res.json({ prodById })
 })
 
-productRouter.get('/detail/:pid', async (req, res) => {
-    const idProd = req.params.pid
-    const product = await productModel.findById(idProd)
-
-    res.render('detail', product)
-})
-
 productRouter.post('/', async (req, res) => {
     const product = req.body
     const prodCode = req.body.code
@@ -53,7 +46,7 @@ productRouter.post('/', async (req, res) => {
         await productModel.create(product)
         const products = await productModel.find().lean().exec()
 
-        res.render('home', { data: products })
+        res.render('products', { data: products })
     } else {
         return res.status(400).json({status: "error", error: "Product Duplicated"})
     }
