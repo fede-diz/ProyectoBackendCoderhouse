@@ -1,9 +1,8 @@
 import productRouter from "./router/product.router.js"
 import cartRouter from "./router/cart.router.js"
 import chatRouter from "./router/chat.router.js"
-import messageModel from "./dao/models/message.model.js";
-import viewsRouter from "./router/views.router.js";
 import sessionRouter from "./router/session.router.js";
+import messageModel from "./dao/models/message.model.js";
 
 const run = (socketServer, app) => {
     app.use((req, res, next) => {
@@ -16,7 +15,6 @@ const run = (socketServer, app) => {
     app.use('/api/carts', cartRouter)
     app.use('/api/chat', chatRouter)
 
-    app.use('/products', viewsRouter)
     app.use('/session', sessionRouter)
 
     app.use('/', (req, res) => res.redirect('/session/login'))

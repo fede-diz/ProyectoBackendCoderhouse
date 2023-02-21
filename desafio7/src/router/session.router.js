@@ -9,8 +9,8 @@ sessionRouter.get('/register', (req, res) => {
 })
 
 // API - Crear usuarios (en DB)
-sessionRouter.post('/register', passport.authenticate('register', { failureRedirect: '/session/failregister' }), async (req, res) => {
-    res.redirect('/session/login')
+sessionRouter.post('/register', passport.authenticate('register', { failureRedirect: '/api/session/failregister' }), async (req, res) => {
+    res.redirect('/api/session/login')
 })
 sessionRouter.get('/failregister', (req, res) => {
     console.log('Fail Strategy');
@@ -23,7 +23,7 @@ sessionRouter.get('/login', (req, res) => {
 })
 
 // API - Login
-sessionRouter.post('/login', passport.authenticate('login', { failureRedirect: '/session/faillogin' }), async (req, res) => {
+sessionRouter.post('/login', passport.authenticate('login', { failureRedirect: '/api/session/faillogin' }), async (req, res) => {
     if (!req.user) {
         return res.status(400).send({ status: "error", error: "Invalid credentials" })
     }
@@ -35,7 +35,7 @@ sessionRouter.post('/login', passport.authenticate('login', { failureRedirect: '
         role: req.user.role
     }
 
-    res.redirect('/products')
+    res.redirect('/api/products')
 })
 sessionRouter.get('/faillogin', (req, res) => {
     res.send({error: "Fail Login"})
@@ -49,7 +49,7 @@ sessionRouter.get('/githubcallback', passport.authenticate('github', {failureRed
 
         req.session.user = req.user
         console.log('User Session: ', req.session.user)
-        res.redirect('/products')
+        res.redirect('/api/products')
     }
 )
 
@@ -59,7 +59,7 @@ sessionRouter.get('/logout', (req, res) => {
         if(err) {
             console.log(err);
             res.status(500).render('errors/base', {error: err})
-        } else res.redirect('/session/login')
+        } else res.redirect('/api/session/login')
     })
 })
 

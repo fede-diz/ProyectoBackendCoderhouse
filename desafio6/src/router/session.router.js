@@ -37,7 +37,7 @@ sessionRouter.post('/login', async (req, res) => {
     }
 
     req.session.user = user
-    res.redirect('/products')
+    res.redirect('/api/products')
 })
 
 // Cerrar Session
