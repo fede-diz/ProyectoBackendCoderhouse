@@ -29,7 +29,7 @@ sessionRouter.get('/login', (req, res) => {
 sessionRouter.post('/login', async (req, res) => {
     const { email, password } = req.body
 
-    const user = await userModel.findOne({email, password}).lean().exec()           // find y findOne van siempre con .lean().exec() para traerlo en formato JSON
+    const user = await userModel.findOne({email, password}).lean().exec()
     if(!user) {
         return res.status(401).render('errors/base', {
             error: 'Error en email y/o password'

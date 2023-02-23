@@ -5,9 +5,8 @@ const oneCartRouter = Router()
 
 oneCartRouter.get('/:cid', async (req, res) => {
     const idCart = req.params.cid
-    const cartById = await cartModel.findOne({_id: idCart})
+    const cartById = await cartModel.findOne({_id: idCart}).lean().exec()
 
-    console.log(cartById.products[1].id.title);
     res.render('oneCart', { cartById })
 })
 
