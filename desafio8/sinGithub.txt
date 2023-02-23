@@ -1,0 +1,4 @@
+Para este desafio le saco el registro y login con Github, porque no sé cómo mezclarlo con JWT.
+
+Al tener JWT como passportCall en run.js  línea 15, el login de Github me lo rechaza por no tener el token.
+Me faltaría entender cómo hacer para que passportCall pueda mandarle 2 argumentos diferentes (o más), y dependiendo de cuál recibe SEGÚN EL LOGIN del usuario, active la función
