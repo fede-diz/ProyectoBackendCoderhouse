@@ -13,7 +13,10 @@ cartRouter.get('/:cid', async (req, res) => {
     const idCart = req.params.cid
     const cartById = await cartModel.findOne({_id: idCart}).lean().exec()
 
-    res.render('cartDetail', { cartById })
+    const user = req.user.user
+    const userCart = user.cart[0].id._id
+
+    res.render('cartDetail', { cart: cartById, user, userCart })
 })
 
 cartRouter.post('/', async (req, res) => {
@@ -26,7 +29,7 @@ cartRouter.post('/:cid/products/:pid', async (req, res) => {
     const idCart = req.params.cid
     const idProd = req.params.pid
     const quantity = req.body.quantity || 1
-    const cart = await cartModel.findById(idCart)
+    const cart = await cartModel.findById(idCart).lean().exec()
 
     let prodInCart = false
     for (let i = 0; i < cart.products.length; i++) {
@@ -38,10 +41,13 @@ cartRouter.post('/:cid/products/:pid', async (req, res) => {
     }
 
     if (prodInCart == false) cart.products.push({ id: idProd, quantity})
+    await cartModel.updateOne({_id: idCart}, cart)
+    const cartUpdated = await cartModel.findById(idCart).lean().exec()
 
-    await cart.save()
+    const user = req.user.user
+    const userCart = user.cart[0].id._id
 
-    res.json({status: 'success', message: 'Product Added to Cart!', cart})
+    res.render('cartDetail', { cart: cartUpdated, user, userCart })
 })
 
 cartRouter.put('/:cid', async (req, res) => {
@@ -95,3 +101,4 @@ cartRouter.delete('/:cid/products/:pid', async (req, res) => {
 })
 
 export default cartRouter
+
