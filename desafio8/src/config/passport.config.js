@@ -1,5 +1,6 @@
 import passport from 'passport'
 import local from 'passport-local'
+import GitHubStrategy from 'passport-github2'
 import jwt from 'passport-jwt'
 import userModel from '../dao/models/user.model.js'
 import cartModel from '../dao/models/cart.model.js'
@@ -31,13 +32,11 @@ const initializePassport = () => {
                 email,
                 age,
                 password: createHash(password),
-                cart: []
+                cart: [],
+                role: email == 'adminCoder@coder.com' ? 'admin' : 'user'
             }
             const newCart = await cartModel.create({})
-            newUser.cart.push({id: newCart._id})
-
-            if (newUser.email == 'adminCoder@coder.com') newUser.role = 'admin'
-            else newUser.role = 'user'
+            newUser.cart.push({id: newCart})
 
             const generatedUser = await userModel.create(newUser)
             
@@ -69,6 +68,46 @@ const initializePassport = () => {
             return done(null, user)
         } catch (error) {
             return done("Error al iniciar sesión " + error)
+        }
+    }))
+
+    // Estrategia Github
+    passport.use('github', new GitHubStrategy({
+        clientID: "Iv1.1231aa3af4b6d534",
+        clientSecret: "93840b0c4984ecd8756d89844e93f5dc0a06892d",
+        callbackURL: "http://127.0.0.1:8080/api/session/githubcallback"
+    }, async(accessToken, refreshToken, profile, done) => {
+        //console.log(profile);
+
+        try {
+            const user = await userModel.findOne({email: profile._json.email})
+
+            if(user) {
+                const tokenExistingUser = generateToken(user)
+                user.token = tokenExistingUser
+
+                return done(null, user)
+            }
+
+            const newUser = {
+                first_name: profile._json.name,
+                last_name: "",
+                email: profile._json.email,
+                password: "",
+                cart: [],
+                role: profile._json.email == 'adminCoder@coder.com' ? 'admin' : 'user'
+            }
+            const newCart = await cartModel.create({})
+            newUser.cart.push({id: newCart})
+
+            const generatedUser = await userModel.create(newUser)
+
+            const tokenNewUser = generateToken(generatedUser)
+            generatedUser.token = tokenNewUser
+
+            return done(null, generatedUser)
+        } catch (error) {
+            return done('Error to login with Github' + error)
         }
     }))
 

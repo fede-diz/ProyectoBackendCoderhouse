@@ -101,4 +101,3 @@ cartRouter.delete('/:cid/products/:pid', async (req, res) => {
 })
 
 export default cartRouter
-

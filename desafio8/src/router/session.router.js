@@ -36,6 +36,18 @@ sessionRouter.get('/faillogin', (req, res) => {
     res.send({error: "Fail Login"})
 })
 
+// GITHUB - Login
+sessionRouter.get('/github', passport.authenticate('github', {scope: ['user:email']}), async(req, res) => {
+
+})
+
+sessionRouter.get('/githubcallback', passport.authenticate('github', {failureRedirect: '/'}), async(req, res) => {
+        req.session.user = req.user
+        console.log('User Session: ', req.session.user)
+        res.cookie(JWT_COOKIE_NAME, req.user.token).redirect('/api/products')
+    }
+)
+
 // Vista - Current
 sessionRouter.get('/current', passportCall('jwt'), async (req, res) => {
     const user = req.user.user

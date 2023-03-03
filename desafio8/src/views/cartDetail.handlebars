@@ -16,20 +16,20 @@
         <tbody>
             {{#each cart.products}}
             <tr>
-                <td>{{this.id.title}}</td>
-                <td>{{this.id.description}}</td>
-                <td>{{this.id.code}}</td>
-                <td>{{this.id.price}}</td>
-                <td>{{this.id.stock}}</td>
-                <td>{{this.id.category}}</td>
-                <td>{{this.id.thumbnail}}</td>
-                <td>A Desarrollar</td>
+                    <td>{{this.id.title}}</td>
+                    <td>{{this.id.description}}</td>
+                    <td>{{this.id.code}}</td>
+                    <td>{{this.id.price}}</td>
+                    <td>{{this.id.stock}}</td>
+                    <td>{{this.id.category}}</td>
+                    <td>{{this.id.thumbnail}}</td>
+                    <td>A desarrollar</td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
     <div>
-        <a href="/api/products?page=1">Inicio</a>
+        <a href="/api/products?page=1"><button class="btn btn-dark">Inicio</button></a>
     </div>
 </div>

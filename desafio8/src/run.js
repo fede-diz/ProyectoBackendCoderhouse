@@ -13,7 +13,7 @@ const run = (socketServer, app) => {
 
     // Congfiguracion de rutas
     app.use('/api/products', passportCall('jwt'), productRouter)
-    app.use('/api/carts', cartRouter)
+    app.use('/api/carts', passportCall('jwt'), cartRouter)
     app.use('/api/chat', chatRouter)
 
     app.use('/api/session', sessionRouter)
