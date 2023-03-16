@@ -22,19 +22,8 @@ export const getAll = async (req, res) => {
     const userCart = user.cart[0].id._id
 
     // console.log(JSON.stringify(products, null, 2, '\t'));    // Lo comenteo para que no joda en la consola
-    
-    // opción 1 =
-    res.render('products', { products, user, userCart })
-    
-    // opción 2 =
-    // return {
-    //     products,
-    //     user,
-    //     userCart
-    // }
 
-    // opción 3 =
-    // res.json({ products, user, userCart })
+    res.render('products', { products, user, userCart })
 }
 
 export const getById_API = async (req, res) => {
@@ -46,7 +35,6 @@ export const getById_API = async (req, res) => {
     res.json({ prodById })
 }
 
-// ver si funciona sólo la de arriba (getById_API), si le agrego el .lean().exec() para renderizar, y sólo cambio el endpoint en el router
 export const getById_RENDER = async (req, res) => {
     const idProd = req.params.pid
     const product = await productModel.findById(idProd).lean().exec()
