@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "1",
+        "title": "Producto desde File N1",
+        "description": "Desde File",
+        "code": "XXX111",
+        "price": 1500,
+        "stock": 10,
+        "category": "File",
+        "thumbnail": "Foto"
+    },
+    {
+        "_id": "2",
+        "title": "Producto desde File N2",
+        "description": "Desde File",
+        "code": "XXX222",
+        "price": 1000,
+        "stock": 20,
+        "category": "File",
+        "thumbnail": "Foto"
+    },
+    {
+        "_id": "3",
+        "title": "Producto desde File N3",
+        "description": "Desde File",
+        "code": "XXX333",
+        "price": 2500,
+        "stock": 30,
+        "category": "File",
+        "thumbnail": "Foto"
+    }
+]
