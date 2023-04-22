@@ -1,0 +1,151 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron devueltos satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Crea un producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/createProduct'
+      responses:
+        "200":
+          description: El producto se creó satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "400":
+          description: Código de producto duplicado
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto por ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto que se busca
+        schema:
+          type: string
+      responses:
+        "200":
+          description: El producto fue devuelto satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "400":
+          description: Producto no encontrado
+  /api/products/detail/{pid}:
+    get:  
+      summary: Obtiene el detalle de un producto por ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto que se busca
+        schema:
+          type: string
+      responses:
+        "200":
+          description: El producto fue devuelto satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'    
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: objectId
+          description: ID auto generado por Mongo
+        title:
+          type: string
+          description: Titulo del producto
+        description:
+          type: string
+          description: Descripción del producto
+        code:
+          type: string
+          description: Codigo del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Cantidad de stock del producto
+        category:
+          type: string
+          description: Categoria del productos
+        thumbnail:
+          type: string
+          description: Imagen en miniatura (en realidad sólo dice "foto")
+      example:
+        _id: ObjectId("644081a93f0625dc193bc594")
+        title: Samsung S20
+        description: Celular Samsung
+        code: a1
+        price: 1100
+        stock: 77
+        category: Celular
+        thumbnail: Foto
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto
+        description:
+          type: string
+          description: Descripción del producto
+        code:
+          type: string
+          description: Codigo del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Cantidad de stock del producto
+        category:
+          type: string
+          description: Categoria del productos
+        thumbnail:
+          type: string
+          description: Imagen en miniatura (en realidad sólo dice "foto")
+      example:
+        title: Samsung S20
+        description: Celular Samsung
+        code: a1
+        price: 1100
+        stock: 77
+        category: Celular
+        thumbnail: Foto

@@ -1,0 +1,29 @@
+<div>
+    <h1>Listado de Productos</h1>
+    <table id="productsTable" class="table table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th><strong>Producto</strong></th>
+                <th><strong>Descripción</strong></th>
+                <th><strong>Código</strong></th>
+                <th><strong>Precio</strong></th>
+                <th><strong>Stock</strong></th>
+                <th><strong>Categoría</strong></th>
+                <th><strong>Miniatura</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.stock}}</td>
+                <td>{{this.category}}</td>
+                <td><img src="{{this.thumbnail}}"></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
