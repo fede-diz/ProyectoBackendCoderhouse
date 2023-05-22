@@ -1,0 +1,33 @@
+<div>
+    <h1>Usuarios</h1>
+    <table id="usersTable" class="table table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th><strong>Nombre</strong></th>
+                <th><strong>Apellido</strong></th>
+                <th><strong>Mail</strong></th>
+                <th><strong>Rol</strong></th>
+                <th><strong>Último Login</strong></th>
+                <th><strong>Cambiar ROL</strong></th>
+                <th><strong>Eliminar</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{this.first_name}}</td>
+                <td>{{this.last_name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.role}}</td>
+                <td>{{this.last_session}}</td>
+                <form action="/api/session/premium/{{this._id}}" method="get">
+                    <td><input type="submit" value="Switch"></td>
+                </form>
+                <form action="/api/session/delete/{{this._id}}" method="get">
+                    <td><input type="submit" value="Delete"></td>
+                </form>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

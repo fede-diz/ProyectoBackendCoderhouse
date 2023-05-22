@@ -1,0 +1,174 @@
+paths:
+  /api/carts:
+    get:
+      summary: Obtiene todos los carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Los carritos fueron devueltos satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+    post:
+      summary: Crea un carrito
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: El carrito se creó satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        "500":
+          description: Falla al crear un carrito
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito por ID
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito que se busca
+        schema:
+          type: string
+      responses:
+        "200":
+          description: El carrito fue devuelto satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+  /api/carts/tickets:
+    get:
+      summary: Todavía no lo pude hacer andar
+      tags:
+        - Tickets
+      responses:
+        "Ninguna"
+  /api/carts/{cid}/products/{pid}:
+    post:  
+      summary: Agrega un producto por su ID a un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito que se busca
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto que se agrega
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/addToCart'
+      responses:
+        "200":
+          description: El producto fue agregado al carrito satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        "500":
+          description: Falla al agregar el producto al carrito
+  /api/carts/{cid}/purchase:
+    post:  
+      summary: Finaliza la compra de los productos cargados en el carrito por ID y genera un ticket
+      tags:
+        - Carts
+        - Tickets
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito que se busca
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Compra finalizada. Ticket creado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  Cart:
+                    type: object
+                    $ref: '#/components/schemas/Cart'
+                  Ticket:
+                    type: object
+                    $ref: '#/components/schemas/Ticket'
+        "400":
+          description: No hay suficiente stock
+        "500":
+          description: Falla al finalizar la compra
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: objectId
+          description: ID autogenerado por Mongo del carrito creado
+        products:
+          type: array
+          description: Productos agregados al carrito
+          items:
+            type: object
+            properties:
+              id:
+                type: objectId
+                description: ID autogenerado por Mongo del producto agregado
+              quantity:
+                type: number
+                description: Cantidad del producto agregado
+      example:
+        _id: ObjectId("644081a93f0625dc193bc594")
+        products: [id: ObjectId("690082a93k0234dc935bc440"), quantity: 7]
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: objectId
+          description: ID autogenerado por Mongo del ticket creado
+        code:
+          type: string
+          description: Código del ticket
+        purchase_datetime:
+          type: string
+          description: Fecha de compra
+        amount:
+          type: number
+          description: Monto total del ticket
+        purchaser:
+          type: string
+          description: Mail del comprador
+  requestBodies:
+    addToCart:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Cantidad de productos a agregar al carrito
+      example:
+        quantity: 10

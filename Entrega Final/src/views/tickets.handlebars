@@ -1,0 +1,27 @@
+<div>
+    <h1>TICKETS</h1>
+    <table id="ticketsTable" class="table table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th><strong>Código</strong></th>
+                <th><strong>Fecha de Compra</strong></th>
+                <th><strong>Monto Total</strong></th>
+                <th><strong>Mail del usuario</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each user.ticket}}
+            <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.purchase_datetime}}</td>
+                <td>{{this.amount}}</td>
+                <td>{{this.purchaser}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="/api/products?page=1"><button class="btn btn-dark">Inicio</button></a>
+    </div>
+</div>

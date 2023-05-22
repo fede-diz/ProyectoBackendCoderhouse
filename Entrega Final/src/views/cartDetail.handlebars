@@ -1,0 +1,45 @@
+<div>
+    <h1>Detalle de Carrito</h1>
+    <table id="productsTable" class="table table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th><strong>Producto</strong></th>
+                <th><strong>Descripción</strong></th>
+                <th><strong>Código</strong></th>
+                <th><strong>Precio</strong></th>
+                <th><strong>Stock</strong></th>
+                <th><strong>Categoría</strong></th>
+                <th><strong>Miniatura</strong></th>
+                <th><strong>Eliminar</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart.products}}
+            <tr>
+                    <td>{{this.id.title}}</td>
+                    <td>{{this.id.description}}</td>
+                    <td>{{this.id.code}}</td>
+                    <td>{{this.id.price}}</td>
+                    <td>{{this.id.stock}}</td>
+                    <td>{{this.id.category}}</td>
+                    <td>{{this.id.thumbnail}}</td>
+                    <td>A desarrollar</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="/api/products?page=1"><button class="btn btn-dark">Inicio</button></a>
+    </div>
+
+    <br>
+
+    <form action="/api/carts/{{cart._id}}/purchase" method="post">
+        <button type="submit" class="btn btn-dark" id="checkout-btn">Comprar</button>
+    </form>
+
+    <div id="button-checkout"></div>
+
+    <script src="/js/mercadoPago.js"></script>
+</div>

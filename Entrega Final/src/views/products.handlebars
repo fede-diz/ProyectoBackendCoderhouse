@@ -1,0 +1,57 @@
+<div>
+    <h1>Listado de Productos</h1>
+    <table id="productsTable" class="table table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th><strong>Producto</strong></th>
+                <th><strong>Descripción</strong></th>
+                <th><strong>Código</strong></th>
+                <th><strong>Precio</strong></th>
+                <th><strong>Stock</strong></th>
+                <th><strong>Categoría</strong></th>
+                <th><strong>Miniatura</strong></th>
+                <th><strong>Detalles</strong></th>
+                <th><strong>Agregar al Carrito</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products.docs}}
+            <tr>
+                <form action="/api/carts/{{../userCart}}/products/{{this._id}}" method="post">
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.thumbnail}}</td>
+                    <td><a href="/api/products/detail/{{this._id}}">Detalle</a></td>
+                    <td><input type="submit" value="Agregar al Carrito"></td>
+                </form>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <br>
+
+    <div>
+        <a href="/api/carts/{{userCart}}"><button class="btn btn-dark">Ir al Carrito</button></a>
+    </div>
+
+    <br>
+
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item {{#if products.hasPrevPage}}{{else}}disabled{{/if }}">
+                    <a class="page-link" href="/api/products?page={{products.prevPage}}">Anterior</a>
+                </li>
+
+                <li class="page-item {{#if products.hasNextPage}}{{else}}disabled{{/if}}">
+                    <a class="page-link" href="/api/products?page={{products.nextPage}}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
