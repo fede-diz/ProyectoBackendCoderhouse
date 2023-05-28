@@ -24,7 +24,7 @@ checkoutButton.addEventListener("click", function () {
         price: totalPrice
     }
     
-    fetch("http://localhost:8080/api/payments/create_preference", {
+    fetch("https://entrega-final-coder-backend-production.up.railway.app/api/payments/create_preference", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
